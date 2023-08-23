@@ -1,4 +1,4 @@
-import { dbQuery } from "../services/db";
+import { prisma } from "../prisma/client";
 
 export type Class = {
   id: number;
@@ -6,13 +6,17 @@ export type Class = {
 };
 
 const insertClass = async (classes: Class) => {
-  await dbQuery(`INSERT INTO class (name) VALUES(?)`, [classes.name]);
-  return classes;
+  const classs = await prisma.class.create({
+    data: {
+      name: classes.name,
+    },
+  });
+  return classs;
 };
 
 const listClasses = async () => {
-  const retorno = await dbQuery(`SELECT * FROM class`);
-  return retorno as Class[];
+  const data = await prisma.class.findMany();
+  return data;
 };
 
 export const classModel = {

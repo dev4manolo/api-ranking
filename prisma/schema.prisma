@@ -1,0 +1,32 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id          Int     @id @default(autoincrement())
+  name        String
+  ranking     Ranking[] @relation("student")
+}
+
+model Class {
+  id          Int     @id @default(autoincrement()) 
+  name        String
+  ranking     Ranking[] @relation("class")
+ }
+
+model Ranking {
+  id          Int     @id @default(autoincrement())
+  student Student @relation("student", fields: [student_id], references: [id])
+  student_id  Int
+  class Class @relation("class", fields: [class_id], references: [id])
+  class_id    Int
+  score       String 
+}

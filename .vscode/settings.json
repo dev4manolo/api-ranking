@@ -5,6 +5,12 @@
       "driver": "SQLite",
       "name": "Ranking",
       "database": "${workspaceFolder:api-ranking}/ranking.sqlite"
+    },
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "Prisma",
+      "database": "${workspaceFolder:api-ranking}/prisma/dev.db"
     }
   ],
   "sqltools.useNodeRuntime": true
