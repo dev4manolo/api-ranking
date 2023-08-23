@@ -1,10 +1,30 @@
 import { Request, Response } from 'express';
-import { rankModel } from '../models/rank';
-import { internalServerError } from '../services/util';
+import { Rank, rankModel } from "../models/rank";
+import { badRequest, internalServerError } from "../services/util";
 
-const ranking = ({}: Request, res: Response) => {
+const insertRank = (req: Request, res: Response) => {
+  {
+    const rank = req.body;
+    if (!rank) return badRequest(res, "Produto inválido");
+
+    if (!rank.student_id) return badRequest(res, "Informe o id do estudante");
+
+    if (!rank.class_id) return badRequest(res, "Informe o id da turma");
+  }
+
+  const classes = req.body as Rank;
+
+  return rankModel
+    .insertRank(classes)
+    .then((ranks) => {
+      res.json(ranks);
+    })
+    .catch((err) => internalServerError(res, err));
+};
+
+const listRank = ({}: Request, res: Response) => {
   rankModel
-    .rankScore()
+    .listRank()
     .then((ranks) => {
       res.json(ranks);
     })
@@ -12,6 +32,7 @@ const ranking = ({}: Request, res: Response) => {
 };
 
 export const rankController = {
-  ranking,
+  insertRank,
+  listRank,
 };
 

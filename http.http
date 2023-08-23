@@ -1,18 +1,37 @@
+#STUDENTS#
 ###
-GET http://localhost:3333/api/v1/products
+GET http://localhost:3333/api/v1/students
 
 ###
-GET http://localhost:3333/api/v1/rank
-
-
-###
-GET http://localhost:3333/api/v1/products/1
-
-###
-POST http://localhost:3333/api/v1/products
+POST http://localhost:3333/api/v1/students
 Content-Type: application/json
 
 {
-  "name": "Teste Nove",
-  "price": 100
+  "name": "Ricardo"
+}
+
+#CLASSES#
+###
+GET http://localhost:3333/api/v1/class
+
+###
+POST http://localhost:3333/api/v1/class
+Content-Type: application/json
+
+{
+  "name": "Redes de Computadores"
+}
+
+#RANK#
+###
+GET http://localhost:3333/api/v1/rank
+
+###
+POST http://localhost:3333/api/v1/rank
+Content-Type: application/json
+
+{
+  "student_id": 1,
+  "class_id": 1,
+  "score": 15
 }
