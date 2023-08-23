@@ -1,21 +1,20 @@
 import { Request, Response } from 'express';
-import { Rank, rankModel } from "../models/rank";
+import { rankModel, requestRank } from "../models/rank";
 import { badRequest, internalServerError } from "../services/util";
 
 const insertRank = (req: Request, res: Response) => {
   {
     const rank = req.body;
-    if (!rank) return badRequest(res, "Produto inválido");
 
     if (!rank.student_id) return badRequest(res, "Informe o id do estudante");
 
     if (!rank.class_id) return badRequest(res, "Informe o id da turma");
   }
 
-  const classes = req.body as Rank;
+  const rank = req.body as requestRank;
 
   return rankModel
-    .insertRank(classes)
+    .insertRank(rank)
     .then((ranks) => {
       res.json(ranks);
     })
