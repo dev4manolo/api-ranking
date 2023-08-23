@@ -1,0 +1,11 @@
+{
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "Ranking",
+      "database": "${workspaceFolder:api-ranking}/ranking.sqlite"
+    }
+  ],
+  "sqltools.useNodeRuntime": true
+}

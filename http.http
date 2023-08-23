@@ -1,0 +1,18 @@
+###
+GET http://localhost:3333/api/v1/products
+
+###
+GET http://localhost:3333/api/v1/rank
+
+
+###
+GET http://localhost:3333/api/v1/products/1
+
+###
+POST http://localhost:3333/api/v1/products
+Content-Type: application/json
+
+{
+  "name": "Teste Nove",
+  "price": 100
+}
