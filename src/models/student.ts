@@ -1,4 +1,4 @@
-import { dbQuery } from "../services/db";
+import { prisma } from "../prisma/client";
 
 export type Student = {
   id: number;
@@ -6,13 +6,26 @@ export type Student = {
 };
 
 const insertStudent = async (student: Student) => {
-  await dbQuery(`INSERT INTO student (name) VALUES(?)`, [student.name]);
-  return student;
+  const studentAlreadyExists = await prisma.student.findFirst({
+    where: {
+      name: student.name,
+    },
+  });
+
+  if (studentAlreadyExists) throw new Error("Aluno já cadastrado");
+
+  const stdent = await prisma.student.create({
+    data: {
+      name: student.name,
+    },
+  });
+
+  return stdent;
 };
 
 const listStudents = async () => {
-  const retorno = await dbQuery(`SELECT * FROM student`);
-  return retorno as Student[];
+  const data = await prisma.student.findMany();
+  return data;
 };
 
 export const studentModel = {

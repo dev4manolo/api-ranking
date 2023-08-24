@@ -1,37 +1,49 @@
-import { dbQuery } from "../services/db";
+import { prisma } from "../prisma/client";
 
 export type Rank = {
-  id: number;
+  id: string;
   name: string;
   score: number;
 };
 
 export type requestRank = {
   student_id: number;
-  class_id: string;
+  class_id: number;
   score: number;
 };
 
 const insertRank = async (rank: requestRank) => {
-  await dbQuery(
-    `INSERT INTO ranking (student_id, class_id, score) VALUES(?, ?, ?)`,
-    [rank.student_id, rank.class_id, rank.score]
-  );
-  return rank;
+  const ranking = await prisma.ranking.create({
+    data: {
+      student_id: rank.student_id,
+      class_id: rank.class_id,
+      score: rank.score,
+    },
+  });
+
+  return ranking;
 };
 
 const listRank = async () => {
-  const retorno = await dbQuery(`
-    SELECT
-        student.id,
-        student.name,
-        SUM(ranking.score) AS score
-    FROM ranking
-    JOIN student ON ranking.student_id = student.id
-    GROUP BY student.id
-    ORDER BY score DESC
-`);
-  return retorno as Rank[];
+  const data: any = await prisma.$queryRaw`
+    select 
+      s.id,
+      s."name",
+      sum(r.score) as score
+    FROM "Ranking" r
+    JOIN "Student" s on r.student_id = s.id
+    group by s.id 
+    order by score desc 
+`;
+
+  const d = data.map((d: any) => {
+    return {
+      id: d.id,
+      name: d.name,
+      score: d.score.toString(),
+    };
+  });
+  return d;
 };
 
 export const rankModel = {
