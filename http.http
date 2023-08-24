@@ -1,3 +1,8 @@
+#MAIN#
+###
+GET http://localhost:3333/api/v1/
+
+
 #STUDENTS#
 ###
 GET http://localhost:3333/api/v1/students
@@ -7,7 +12,7 @@ POST http://localhost:3333/api/v1/students
 Content-Type: application/json
 
 {
-  "name": "Ricardo"
+  "name": "Davi"
 }
 
 #CLASSES#
@@ -31,7 +36,7 @@ POST http://localhost:3333/api/v1/rank
 Content-Type: application/json
 
 {
-  "student_id": 2,
+  "student_id": 3,
   "class_id": 1,
-  "score": 20
+  "score": 220
 }

@@ -6,6 +6,9 @@ import { studentRouter } from "./student";
 export const useRoutes = (app: Application) => {
   const apiRouter = Router();
 
+  apiRouter.use("/", (req, res) => {
+    res.status(200).json({ status: "Ok" });
+  });
   apiRouter.use("/rank", rankRouter);
   apiRouter.use("/students", studentRouter);
   apiRouter.use("/class", classRouter);

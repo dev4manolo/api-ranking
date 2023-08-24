@@ -17,7 +17,7 @@ const insertRank = async (rank: requestRank) => {
     data: {
       student_id: rank.student_id,
       class_id: rank.class_id,
-      score: rank.score.toString(),
+      score: rank.score,
     },
   });
 
