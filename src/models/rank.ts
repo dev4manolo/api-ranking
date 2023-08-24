@@ -3,13 +3,13 @@ import { prisma } from "../prisma/client";
 export type Rank = {
   id: string;
   name: string;
-  score: number;
+  score: string;
 };
 
 export type requestRank = {
   student_id: number;
   class_id: number;
-  score: number;
+  score: string;
 };
 
 const insertRank = async (rank: requestRank) => {
@@ -17,7 +17,7 @@ const insertRank = async (rank: requestRank) => {
     data: {
       student_id: rank.student_id,
       class_id: rank.class_id,
-      score: rank.score,
+      score: rank.score.toString(),
     },
   });
 
