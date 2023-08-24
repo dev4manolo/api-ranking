@@ -12,7 +12,7 @@ POST http://localhost:3333/api/v1/students
 Content-Type: application/json
 
 {
-  "name": "Davi"
+  "name": "Thiago"
 }
 
 #CLASSES#
@@ -36,7 +36,7 @@ POST http://localhost:3333/api/v1/rank
 Content-Type: application/json
 
 {
-  "student_id": 3,
+  "student_id": 1,
   "class_id": 1,
-  "score": 220
+  "score": 20
 }

@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -20,13 +20,16 @@ model Class {
   id          Int     @id @default(autoincrement()) 
   name        String
   ranking     Ranking[] @relation("class")
- }
+}
 
 model Ranking {
   id          Int     @id @default(autoincrement())
+
   student Student @relation("student", fields: [student_id], references: [id])
   student_id  Int
+
   class Class @relation("class", fields: [class_id], references: [id])
   class_id    Int
-  score       String 
+  
+  score       Int 
 }
