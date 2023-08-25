@@ -1,0 +1,225 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Ranking",
+    "description": "API Ranking",
+    "contact": {
+      "name": "Support",
+      "emai": "support@mail.com"
+    },
+    "version": "1.0.0"
+  },
+  "paths": {
+    "tags": ["students"],
+    "/api/v1/students": {
+      "post": {
+        "description": "Inseri um novo aluno",
+        "requestBody": {
+          "description": "Dados obrigatórios",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestStudent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Fail"
+          }
+        }
+      },
+
+      "get": {
+        "description": "Listagem dos alunos"
+      }
+    },
+    "/api/v1/class": {
+      "tags": ["class"],
+      "post": {
+        "description": "Inseri uma nova turma",
+        "requestBody": {
+          "description": "Dados obrigatórios",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestClass"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseClass"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Fail"
+          }
+        }
+      },
+      "get": {
+        "description": "Listagem das turmas",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ResponseClass"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Fail"
+          }
+        }
+      }
+    },
+    "/api/v1/rank": {
+      "tags": ["rank"],
+      "post": {
+        "description": "Inseri os pontos",
+        "requestBody": {
+          "description": "Dados obrigatórios",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestRank"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseRanking"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Fail"
+          }
+        }
+      },
+      "requestBody": {
+        "description": "Dados obrigatórios"
+      },
+      "get": {
+        "description": "Visualizar o rank",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ResponseRank"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Fail"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RequestStudent": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "RequestClass": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "RequestRank": {
+        "type": "object",
+        "properties": {
+          "student_id": {
+            "type": "number"
+          },
+          "class_id": {
+            "type": "number"
+          },
+          "score": {
+            "type": "number"
+          }
+        }
+      },
+      "ResponseRank": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "rank": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponseRanking": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "student_id": {
+            "type": "number"
+          },
+          "class_id": {
+            "type": "number"
+          },
+          "score": {
+            "type": "number"
+          }
+        }
+      },
+      "ResponseClass": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
