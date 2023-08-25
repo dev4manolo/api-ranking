@@ -15,6 +15,14 @@ app.use(express.json());
 
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+app.get("/swagger", (_, response) => {
+  return response.sendFile(process.cwd() + "/src/swagger.json");
+});
+
+app.get("/docs", (_, response) => {
+  return response.sendFile(process.cwd() + "/src/index.html");
+});
+
 useRoutes(app);
 
 app.listen(PORT, () => console.log("Servidor iniciado na porta " + PORT));
