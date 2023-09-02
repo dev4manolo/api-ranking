@@ -26,14 +26,37 @@ const insertRank = async (rank: requestRank) => {
 
 const listRank = async () => {
   const data: any = await prisma.$queryRaw`
-    select 
+    SELECT 
       s.id,
       s."name",
-      sum(r.score) as score
+      SUM(r.score) AS score
     FROM "Ranking" r
     JOIN "Student" s on r.student_id = s.id
-    group by s.id 
-    order by score desc 
+    GROUP BY s.id 
+    ORDER BY score DESC 
+`;
+
+  const d = data.map((d: any) => {
+    return {
+      id: d.id,
+      name: d.name,
+      score: d.score.toString(),
+    };
+  });
+  return d;
+};
+
+const viewRankByClasses = async (id: number) => {
+  const data: any = await prisma.$queryRaw`
+    SELECT 
+      s.id,
+      s."name",
+      SUM(r.score) AS score
+    FROM "Ranking" r
+    JOIN "Student" s on r.student_id = s.id
+    WHERE r.class_id = ${id}
+    GROUP BY s.id 
+    ORDER BY score DESC 
 `;
 
   const d = data.map((d: any) => {
@@ -49,4 +72,5 @@ const listRank = async () => {
 export const rankModel = {
   listRank,
   insertRank,
+  viewRankByClasses,
 };

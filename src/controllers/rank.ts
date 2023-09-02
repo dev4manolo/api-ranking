@@ -30,8 +30,20 @@ const listRank = ({}: Request, res: Response) => {
     .catch((err) => internalServerError(res, err));
 };
 
+const viewRankByClasses = (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  return rankModel
+    .viewRankByClasses(Number(id))
+    .then((ranks) => {
+      res.json(ranks);
+    })
+    .catch((err) => internalServerError(res, err));
+};
+
 export const rankController = {
   insertRank,
   listRank,
+  viewRankByClasses,
 };
 
